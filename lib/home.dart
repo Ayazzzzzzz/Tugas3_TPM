@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'login.dart';
+import 'package:tugas3_tpm/login.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
-  Future<void> _logout(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear(); // Menghapus semua data session
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Logout'),
+          content: const Text('Apakah Anda yakin ingin logout?'),
+          actions: [
+            TextButton(
+              child: const Text('Batal'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Tutup dialog
+              },
+            ),
+            TextButton(
+              child: const Text('Logout'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Tutup dialog
 
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const Login()),
-      (Route<dynamic> route) => false,
+                // Arahkan langsung ke halaman login dan hapus semua route sebelumnya
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const Login()),
+                      (route) => false,
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -21,12 +41,12 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        backgroundColor: Color.fromARGB(255, 14, 49, 107),
+        backgroundColor: const Color.fromARGB(255, 14, 49, 107),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () => _logout(context),
+            icon: const Icon(Icons.logout),
             tooltip: 'Logout',
+            onPressed: () => _showLogoutDialog(context),
           ),
         ],
       ),

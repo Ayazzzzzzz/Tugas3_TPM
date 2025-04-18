@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tugas3_tpm/home.dart';
 import 'package:tugas3_tpm/pages/cekbilangan.dart';
 import 'package:tugas3_tpm/pages/daftar_anggota.dart';
 import 'package:tugas3_tpm/pages/help.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           bodyColor: const Color.fromARGB(255, 14, 49, 107),
         ),
       ),
-      home: HelpMenu(),
+      home: Login(),
     );
   }
 }
