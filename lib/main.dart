@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           bodyColor: const Color.fromARGB(255, 14, 49, 107),
         ),
       ),
-      home: DaftarAnggotaPage(),
+      home: Login(),
     );
   }
 }
