@@ -1,0 +1,2 @@
+C:/Users/hp/Tugas3_TPM/android/app/.cxx/Debug/83q3g2a5/x86/CMakeFiles/edit_cache.dir
+C:/Users/hp/Tugas3_TPM/android/app/.cxx/Debug/83q3g2a5/x86/CMakeFiles/rebuild_cache.dir
