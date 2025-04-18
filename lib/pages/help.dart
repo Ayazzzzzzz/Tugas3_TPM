@@ -42,7 +42,7 @@ class HelpMenu extends StatelessWidget {
                       'Panduan Penggunaan Aplikasi',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.rubikMonoOne(
-                        color: Colors.black87,
+                        color: const Color(0xFF0E316B),
                         fontSize: 20,
                       ),
                     ),
@@ -51,7 +51,8 @@ class HelpMenu extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   ExpansionTile(
-                    title: const Text("🔐 Login"),
+                    leading: const Icon(Icons.login),
+                    title: const Text("Login"),
                     children: const [
                       ListTile(
                         title: Text(
@@ -64,7 +65,8 @@ class HelpMenu extends StatelessWidget {
                   ),
 
                   ExpansionTile(
-                    title: const Text("🏠 Halaman Utama"),
+                    leading: const Icon(Icons.home),
+                    title: const Text("Halaman Utama"),
                     children: const [
                       ListTile(title: Text("Terdiri dari 5 menu utama yang ditampilkan secara vertikal di tengah layar:")),
                       ListTile(title: Text("1. Stopwatch - Mulai, Berhenti, dan Reset stopwatch.")),
@@ -76,7 +78,8 @@ class HelpMenu extends StatelessWidget {
                   ),
 
                   ExpansionTile(
-                    title: const Text("⭐ Favorite"),
+                    leading: const Icon(Icons.favorite),
+                    title: const Text("Favorite"),
                     children: const [
                       ListTile(
                         title: Text("Gunakan fitur ini untuk menyimpan halaman favorit dari situs atau menu lain."),
@@ -85,7 +88,8 @@ class HelpMenu extends StatelessWidget {
                   ),
 
                   ExpansionTile(
-                    title: const Text("📱 Bottom Navigation Bar"),
+                    leading: const Icon(Icons.menu),
+                    title: const Text("Bottom Navigation Bar"),
                     children: const [
                       ListTile(title: Text("1. Beranda - Kembali ke halaman utama.")),
                       ListTile(title: Text("2. Daftar Anggota - Tampilkan informasi anggota tim pembuat aplikasi.")),
@@ -95,9 +99,15 @@ class HelpMenu extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 24),
-                  const Text(
-                    "💡 Tips Penggunaan",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  Row(
+                    children: const [
+                      Icon(Icons.lightbulb),
+                      SizedBox(width: 8),
+                      Text(
+                        "Tips Penggunaan",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   const Text("• Pastikan koneksi internet stabil untuk fitur online."),
