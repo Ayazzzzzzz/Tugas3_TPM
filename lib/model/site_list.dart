@@ -14,12 +14,6 @@ class LearningSite {
 
 final List<LearningSite> learningSites = [
   LearningSite(
-    name: 'Flutter Dev',
-    description: 'Sumber resmi untuk mempelajari Flutter—terdapat dokumentasi lengkap, panduan UI, serta panduan interaktif.',
-    imageUrl: 'https://image.thum.io/get/width/800/https://flutter.dev',
-    link: 'https://flutter.dev',
-  ),
-  LearningSite(
     name: 'Dart Dev',
     description: 'Platform resmi untuk mendalami bahasa pemrograman Dart, mencakup konsep dasar, null safety, dan fitur lanjutan.',
     imageUrl: 'https://image.thum.io/get/width/800/https://dart.dev',
@@ -42,6 +36,12 @@ final List<LearningSite> learningSites = [
     description: 'Platform no-code yang memungkinkan kamu membangun aplikasi Flutter dengan desain visual interaktif.',
     imageUrl: 'https://image.thum.io/get/width/800/https://flutterflow.io',
     link: 'https://flutterflow.io',
+  ),
+  LearningSite(
+    name: 'Flutter Dev',
+    description: 'Sumber resmi untuk mempelajari Flutter—terdapat dokumentasi lengkap, panduan UI, serta panduan interaktif.',
+    imageUrl: 'https://image.thum.io/get/width/800/https://flutter.dev',
+    link: 'https://flutter.dev',
   ),
   LearningSite(
     name: 'Flutter YouTube',

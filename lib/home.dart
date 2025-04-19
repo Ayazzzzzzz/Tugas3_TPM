@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   void _onItemTapped(int index) {
     switch (index) {
       case 0:
-      // Halaman Home, tetap di sini
+        // Halaman Home, tetap di sini
         break;
       case 1:
         Navigator.push(
@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
         break;
     }
   }
-
 
   void _showLogoutDialog(BuildContext context) {
     showDialog(
@@ -67,7 +66,7 @@ class _HomeState extends State<Home> {
                 Navigator.of(dialogContext).pop();
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const Login()),
-                      (route) => false,
+                  (route) => false,
                 );
               },
             ),
@@ -95,7 +94,8 @@ class _HomeState extends State<Home> {
               color: const Color(0xFFBCCBE3),
               borderRadius: BorderRadius.circular(16),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             child: Row(
               children: [
                 Image.asset(assetPath, width: 36, height: 36),
@@ -133,7 +133,8 @@ class _HomeState extends State<Home> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
             child: Column(
               children: [
                 Align(
@@ -158,31 +159,38 @@ class _HomeState extends State<Home> {
                         buildMenuButton("Stopwatch", "asset/Stopwatch.png", () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const StopwatchPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const StopwatchPage()),
                           );
                         }),
-                        buildMenuButton("Cek bilangan", "asset/Numbers.png", () {
+                        buildMenuButton("Cek bilangan", "asset/Numbers.png",
+                            () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const CekBilangan()),
+                            MaterialPageRoute(
+                                builder: (context) => const CekBilangan()),
                           );
                         }),
                         buildMenuButton("Tracking LBS", "asset/Map.png", () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const LBSTrackingPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const LBSTrackingPage()),
                           );
                         }),
-                        buildMenuButton("Konversi Tahun", "asset/Timetable.png", () {
+                        buildMenuButton("Konversi Tahun", "asset/Timetable.png",
+                            () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => KonversiWaktuPage()),
+                            MaterialPageRoute(
+                                builder: (context) => KonversiWaktuPage()),
                           );
                         }),
                         buildMenuButton("Rekomendasi", "asset/Advice.png", () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const RekomendasiList()),
+                            MaterialPageRoute(
+                                builder: (context) => const RekomendasiList()),
                           );
                         }),
                       ],
@@ -208,7 +216,9 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Image.asset(
               'asset/icon_home.png',
-              color: _selectedIndex == 0 ? const Color(0xFFF9C851) : Colors.white70,
+              color: _selectedIndex == 0
+                  ? const Color(0xFFF9C851)
+                  : Colors.white70,
               width: 24,
               height: 24,
             ),
@@ -217,7 +227,9 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Image.asset(
               'asset/icon_profile.png',
-              color: _selectedIndex == 1 ? const Color(0xFFF9C851) : Colors.white70,
+              color: _selectedIndex == 1
+                  ? const Color(0xFFF9C851)
+                  : Colors.white70,
               width: 24,
               height: 24,
             ),
@@ -226,7 +238,9 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Image.asset(
               'asset/icon_help.png',
-              color: _selectedIndex == 2 ? const Color(0xFFF9C851) : Colors.white70,
+              color: _selectedIndex == 2
+                  ? const Color(0xFFF9C851)
+                  : Colors.white70,
               width: 24,
               height: 24,
             ),
@@ -235,7 +249,9 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Image.asset(
               'asset/icon_logout.png',
-              color: _selectedIndex == 3 ? const Color(0xFFF9C851) : Colors.white70,
+              color: _selectedIndex == 3
+                  ? const Color(0xFFF9C851)
+                  : Colors.white70,
               width: 24,
               height: 24,
             ),
