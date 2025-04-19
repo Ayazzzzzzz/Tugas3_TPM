@@ -55,7 +55,6 @@ class _KonversiWaktuPageState extends State<KonversiWaktuPage> with TickerProvid
       int startYear = 0;
       int leapYears = 0;
 
-      // Hitung jumlah tahun kabisat dari tahun 0 sampai fullYears
       for (int i = startYear; i < fullYears; i++) {
         if ((i % 4 == 0 && i % 100 != 0) || (i % 400 == 0)) {
           leapYears++;
@@ -64,7 +63,6 @@ class _KonversiWaktuPageState extends State<KonversiWaktuPage> with TickerProvid
 
       int normalYears = fullYears - leapYears;
 
-      // Cek apakah tahun berikutnya kabisat untuk menentukan jumlah hari pada fractionalYear
       int nextYear = fullYears;
       bool isNextLeap = (nextYear % 4 == 0 && nextYear % 100 != 0) || (nextYear % 400 == 0);
       double fractionalDays = fractionalYear * (isNextLeap ? 366 : 365);
@@ -146,6 +144,14 @@ $years Tahun, $months Bulan, dan $finalDays Hari
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 242, 247, 255),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 242, 247, 255),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 14, 49, 107)),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Stack(
         children: [
           Align(

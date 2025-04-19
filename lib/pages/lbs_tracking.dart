@@ -84,7 +84,15 @@ class _LBSTrackingPageState extends State<LBSTrackingPage> {
         .height;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: const Color.fromARGB(255, 242, 247, 255),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 242, 247, 255),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 14, 49, 107)),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Stack(
         children: [
           Align(

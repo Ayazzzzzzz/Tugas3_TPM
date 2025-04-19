@@ -22,7 +22,15 @@ class _RekomendasiListState extends State<RekomendasiList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F7FF),
+      backgroundColor: const Color.fromARGB(255, 242, 247, 255),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 242, 247, 255),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 14, 49, 107)),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Stack(
         children: [
           Align(
