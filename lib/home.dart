@@ -7,10 +7,42 @@ import 'package:tugas3_tpm/pages/cekbilangan.dart';
 import 'package:tugas3_tpm/pages/lbs_tracking.dart';
 import 'package:tugas3_tpm/pages/konversi_waktu.dart';
 import 'package:tugas3_tpm/pages/rekomendasi_list.dart';
+import 'package:tugas3_tpm/pages/help.dart';
+import 'package:tugas3_tpm/pages/daftar_anggota.dart';
 
-
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    switch (index) {
+      case 0:
+      // Halaman Home, tetap di sini
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DaftarAnggotaPage()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HelpMenu()),
+        );
+        break;
+      case 3:
+        _showLogoutDialog(context);
+        break;
+    }
+  }
+
 
   void _showLogoutDialog(BuildContext context) {
     showDialog(
@@ -90,17 +122,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF2F7FF),
-      appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: const Color(0xFF0E316B),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
-            onPressed: () => _showLogoutDialog(context),
-          ),
-        ],
-      ),
       body: Stack(
         children: [
           Align(
@@ -140,35 +161,30 @@ class Home extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => const StopwatchPage()),
                           );
                         }),
-
                         buildMenuButton("Cek bilangan", "asset/Numbers.png", () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const CekBilangan()),
                           );
                         }),
-
                         buildMenuButton("Tracking LBS", "asset/Map.png", () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const LBSTrackingPage()),
                           );
                         }),
-
                         buildMenuButton("Konversi Tahun", "asset/Timetable.png", () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => KonversiWaktuPage()),
                           );
                         }),
-
                         buildMenuButton("Rekomendasi", "asset/Advice.png", () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const RekomendasiList()),
                           );
                         }),
-
                       ],
                     ),
                   ),
@@ -186,11 +202,45 @@ class Home extends StatelessWidget {
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifikasi'),
-          BottomNavigationBarItem(icon: Icon(Icons.help_outline), label: 'Bantuan'),
-          BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Keluar'),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_home.png',
+              color: _selectedIndex == 0 ? const Color(0xFFF9C851) : Colors.white70,
+              width: 24,
+              height: 24,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_profile.png',
+              color: _selectedIndex == 1 ? const Color(0xFFF9C851) : Colors.white70,
+              width: 24,
+              height: 24,
+            ),
+            label: 'Notifikasi',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_help.png',
+              color: _selectedIndex == 2 ? const Color(0xFFF9C851) : Colors.white70,
+              width: 24,
+              height: 24,
+            ),
+            label: 'Bantuan',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_logout.png',
+              color: _selectedIndex == 3 ? const Color(0xFFF9C851) : Colors.white70,
+              width: 24,
+              height: 24,
+            ),
+            label: 'Keluar',
+          ),
         ],
       ),
     );

@@ -1,8 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tugas3_tpm/home.dart';
+import 'package:tugas3_tpm/pages/daftar_anggota.dart';
+import 'package:tugas3_tpm/login.dart';
 
-class HelpMenu extends StatelessWidget {
+class HelpMenu extends StatefulWidget {
   const HelpMenu({super.key});
+
+  @override
+  State<HelpMenu> createState() => _HelpMenuState();
+}
+
+class _HelpMenuState extends State<HelpMenu> {
+  int _selectedIndex = 2;
+
+  void _onItemTapped(int index) async {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const DaftarAnggotaPage()),
+        );
+        break;
+      case 2:
+        break;
+      case 3:
+        _showLogoutDialog(context);
+        break;
+    }
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Logout'),
+          content: const Text('Apakah Anda yakin ingin logout?'),
+          actions: [
+            TextButton(
+              child: const Text('Batal'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Logout'),
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.remove('isLoggedIn');
+                await prefs.remove('userEmail');
+                Navigator.of(dialogContext).pop();
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const Login()),
+                      (route) => false,
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +105,7 @@ class HelpMenu extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // Judul di tengah dengan Google Font
+                  // Judul
                   Center(
                     child: Text(
                       'Panduan Penggunaan Aplikasi',
@@ -117,6 +186,55 @@ class HelpMenu extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF0E316B),
+        selectedItemColor: const Color(0xFFF9C851),
+        unselectedItemColor: Colors.white70,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        elevation: 8,
+        items: [
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_home.png',
+              width: 24,
+              height: 24,
+              color: _selectedIndex == 0 ? const Color(0xFFF9C851) : Colors.white70,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_profile.png',
+              width: 24,
+              height: 24,
+              color: _selectedIndex == 1 ? const Color(0xFFF9C851) : Colors.white70,
+            ),
+            label: 'Anggota',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_help.png',
+              width: 24,
+              height: 24,
+              color: _selectedIndex == 2 ? const Color(0xFFF9C851) : Colors.white70,
+            ),
+            label: 'Bantuan',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'asset/icon_logout.png',
+              width: 24,
+              height: 24,
+              color: _selectedIndex == 3 ? const Color(0xFFF9C851) : Colors.white70,
+            ),
+            label: 'Keluar',
           ),
         ],
       ),
