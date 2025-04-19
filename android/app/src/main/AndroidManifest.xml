@@ -3,12 +3,28 @@
     <!-- Izin lokasi -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+    
     <application
         android:label="tugas3_tpm"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
 
+        <service
+    android:name="com.ajinasokan.flutter_overlay_window.OverlayService"
+    android:exported="false"
+    android:permission="android.permission.SYSTEM_ALERT_WINDOW"/>
+    
         <!-- API maps dari google -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
