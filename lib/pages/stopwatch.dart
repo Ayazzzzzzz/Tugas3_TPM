@@ -98,17 +98,10 @@ class _StopwatchPageState extends State<StopwatchPage> {
     final elapsed = _stopwatch.elapsed;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 242, 247, 255),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 242, 247, 255),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 14, 49, 107)),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
+          // Background ombak di bawah
           Align(
             alignment: Alignment.bottomCenter,
             child: Image.asset(
@@ -117,108 +110,129 @@ class _StopwatchPageState extends State<StopwatchPage> {
               width: double.infinity,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const Spacer(),
-                    Image.asset(
-                      "asset/logo.png",
-                      width: 80,
-                      height: 80,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 50.0),
-                Text(
-                  'Detik Dalam Diam',
-                  style: GoogleFonts.rubikMonoOne(
-                    fontSize: 27,
-                    color: darkBlue,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 60),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      text: _format(elapsed).split('.')[0],
-                      style: const TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
-                        color: darkBlue,
+
+          // Konten utama
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                children: [
+                  // Bar atas: tombol back & logo
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back, color: darkBlue),
+                        onPressed: () => Navigator.pop(context),
                       ),
-                      children: [
-                        TextSpan(
-                          text: ".${_format(elapsed).split('.')[1]}",
-                          style: const TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.normal,
-                            color: darkBlue,
-                          ),
-                        )
-                      ],
-                    ),
+                      const Spacer(),
+                      Image.asset(
+                        "asset/logo.png",
+                        width: 80,
+                        height: 80,
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildButton(
-                      label: "Putaran",
+
+                  const SizedBox(height: 16),
+
+                  // Judul halaman
+                  Text(
+                    'Detik Dalam Diam',
+                    style: GoogleFonts.rubikMonoOne(
+                      fontSize: 27,
                       color: darkBlue,
-                      onPressed: _stopwatch.isRunning ? _addLap : null,
                     ),
-                    const SizedBox(width: 12),
-                    _buildButton(
-                      label: _stopwatch.isRunning ? "Berhenti" : "Mulai",
-                      color: _stopwatch.isRunning ? softRed  : blue,
-                      onPressed:
-                      _stopwatch.isRunning ? _stopStopwatch : _startStopwatch,
-                    ),
-                    const SizedBox(width: 12),
-                    _buildButton(
-                      label: "Reset",
-                      color: yellow,
-                      textColor: darkBlue,
-                      onPressed: _resetStopwatch,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                const Divider(thickness: 1),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: _lapTimes.length,
-                    itemBuilder: (context, index) {
-                      final lap = _lapTimes[_lapTimes.length - 1 - index];
-                      return ListTile(
-                        dense: true,
-                        title: Text(
-                          "Putaran ${lap.lapNumber.toString().padLeft(2, '0')}",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Waktu lap: ${_format(lap.lapTime)}"),
-                            Text("Keseluruhan: ${_format(lap.totalTime)}"),
-                          ],
-                        ),
-                      );
-                    },
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ],
+
+                  const SizedBox(height: 32),
+
+                  // Waktu utama
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        text: _format(elapsed).split('.')[0],
+                        style: const TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlue,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: ".${_format(elapsed).split('.')[1]}",
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.normal,
+                              color: darkBlue,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Tombol kontrol
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildButton(
+                        label: "Putaran",
+                        color: darkBlue,
+                        onPressed: _stopwatch.isRunning ? _addLap : null,
+                      ),
+                      const SizedBox(width: 12),
+                      _buildButton(
+                        label: _stopwatch.isRunning ? "Berhenti" : "Mulai",
+                        color: _stopwatch.isRunning ? softRed : blue,
+                        onPressed: _stopwatch.isRunning ? _stopStopwatch : _startStopwatch,
+                      ),
+                      const SizedBox(width: 12),
+                      _buildButton(
+                        label: "Reset",
+                        color: yellow,
+                        textColor: darkBlue,
+                        onPressed: _resetStopwatch,
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+                  const Divider(thickness: 1),
+
+                  // Daftar putaran
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _lapTimes.length,
+                      itemBuilder: (context, index) {
+                        final lap = _lapTimes[_lapTimes.length - 1 - index];
+                        return ListTile(
+                          dense: true,
+                          title: Text(
+                            "Putaran ${lap.lapNumber.toString().padLeft(2, '0')}",
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Waktu lap: ${_format(lap.lapTime)}"),
+                              Text("Keseluruhan: ${_format(lap.totalTime)}"),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
 
   Widget _buildButton({
     required String label,

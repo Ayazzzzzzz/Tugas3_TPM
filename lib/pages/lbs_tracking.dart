@@ -84,17 +84,11 @@ class _LBSTrackingPageState extends State<LBSTrackingPage> {
         .height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 242, 247, 255),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 242, 247, 255),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 14, 49, 107)),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Stack(
         children: [
+          // background ombak kuning
           Align(
             alignment: Alignment.bottomCenter,
             child: Image.asset(
@@ -110,6 +104,10 @@ class _LBSTrackingPageState extends State<LBSTrackingPage> {
                 children: [
                   Row(
                     children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: darkBlue),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                       const Spacer(),
                       Image.asset(
                         "asset/logo.png",
@@ -118,7 +116,7 @@ class _LBSTrackingPageState extends State<LBSTrackingPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   Text(
                     'LBS Tracking',
                     style: GoogleFonts.rubikMonoOne(

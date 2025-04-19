@@ -142,18 +142,14 @@ $years Tahun, $months Bulan, dan $finalDays Hari
 
   @override
   Widget build(BuildContext context) {
+    const darkBlue = Color(0xFF0A2E5C); // utk arrow
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 242, 247, 255),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 242, 247, 255),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color.fromARGB(255, 14, 49, 107)),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Stack(
         children: [
+          // 🔸 Background ombak kuning
           Align(
             alignment: Alignment.bottomCenter,
             child: Image.asset(
@@ -162,37 +158,58 @@ $years Tahun, $months Bulan, dan $finalDays Hari
               width: double.infinity,
             ),
           ),
-          Align(
-            alignment: Alignment(0, -0.6),
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+
+          // 🔸 Konten utama
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 children: [
-                  Container(
-                    child: Image.asset("asset/logo.png"),
-                    alignment: Alignment.centerRight,
+                  // 🔙 Tombol back + logo
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: darkBlue),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      const Spacer(),
+                      Image.asset(
+                        "asset/logo.png",
+                        width: 80,
+                        height: 80,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 5.0),
+
+                  const SizedBox(height: 16),
+
+                  // Judul halaman
                   Text(
                     'KONVERSI WAKTU',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.rubikMonoOne(
-                      fontSize: 28,
+                      fontSize: 22,
                       color: Color.fromARGB(255, 14, 49, 107),
                     ),
                   ),
-                  SizedBox(height: 20),
+
+                  const SizedBox(height: 20),
+
+                  // TabBar
                   TabBar(
                     controller: _tabController,
-                    labelColor: Color.fromARGB(255, 14, 49, 107),
-                    indicatorColor: Color.fromARGB(255, 255, 221, 77),
-                    tabs: [
+                    labelColor: const Color.fromARGB(255, 14, 49, 107),
+                    indicatorColor: const Color.fromARGB(255, 255, 221, 77),
+                    tabs: const [
                       Tab(text: "Konversi Tahun"),
                       Tab(text: "Hitung Usia"),
                     ],
                   ),
-                  SizedBox(
-                    height: 480,
+
+                  const SizedBox(height: 20),
+
+                  // TabBarView
+                  Expanded(
                     child: TabBarView(
                       controller: _tabController,
                       children: [
@@ -209,6 +226,7 @@ $years Tahun, $months Bulan, dan $finalDays Hari
       ),
     );
   }
+
 
   Widget _buildKonversiTahunTab() {
     return Column(
