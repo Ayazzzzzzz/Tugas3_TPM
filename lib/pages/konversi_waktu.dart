@@ -14,10 +14,6 @@ class _KonversiWaktuPageState extends State<KonversiWaktuPage> with TickerProvid
   String _resultKonversi = '';
   bool _showResultKonversi = false;
 
-  DateTime? _birthDateTime;
-  String _resultUmur = '';
-  bool _showResultUmur = false;
-
   late TabController _tabController;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -25,7 +21,7 @@ class _KonversiWaktuPageState extends State<KonversiWaktuPage> with TickerProvid
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 1, vsync: this); // Hanya 1 tab
     _animationController = AnimationController(
       duration: Duration(milliseconds: 800),
       vsync: this,
@@ -81,75 +77,22 @@ ${formatter.format(years)} Tahun
 = ${formatter.format(hours)} Jam
 = ${formatter.format(minutes)} Menit
 = ${formatter.format(seconds)} Detik
-      ''';
+        ''';
         _showResultKonversi = true;
         _animationController.forward(from: 0);
       });
     }
   }
 
-
-  void _pickBirthDateTime() async {
-    final DateTime? date = await showDatePicker(
-      context: context,
-      initialDate: DateTime(2000),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-
-    if (date != null) {
-      final TimeOfDay? time = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay(hour: 0, minute: 0),
-      );
-
-      if (time != null) {
-        setState(() {
-          _birthDateTime = DateTime(
-            date.year,
-            date.month,
-            date.day,
-            time.hour,
-            time.minute,
-          );
-          _calculateAge();
-        });
-      }
-    }
-  }
-
-  void _calculateAge() {
-    if (_birthDateTime == null) return;
-
-    final now = DateTime.now();
-    Duration diff = now.difference(_birthDateTime!);
-
-    int days = diff.inDays;
-    int years = days ~/ 365;
-    int remainingDays = days % 365;
-    int months = remainingDays ~/ 30;
-    int finalDays = remainingDays % 30;
-
-    setState(() {
-      _resultUmur = '''
-Usiamu adalah:
-$years Tahun, $months Bulan, dan $finalDays Hari
-      ''';
-      _showResultUmur = true;
-      _animationController.forward(from: 0);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    const darkBlue = Color(0xFF0A2E5C); // utk arrow
+    const darkBlue = Color(0xFF0A2E5C);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 242, 247, 255),
       body: Stack(
         children: [
-          // 🔸 Background ombak kuning
           Align(
             alignment: Alignment.bottomCenter,
             child: Image.asset(
@@ -158,14 +101,11 @@ $years Tahun, $months Bulan, dan $finalDays Hari
               width: double.infinity,
             ),
           ),
-
-          // 🔸 Konten utama
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 children: [
-                  // 🔙 Tombol back + logo
                   Row(
                     children: [
                       IconButton(
@@ -180,10 +120,7 @@ $years Tahun, $months Bulan, dan $finalDays Hari
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 16),
-
-                  // Judul halaman
                   Text(
                     'KONVERSI WAKTU',
                     textAlign: TextAlign.center,
@@ -192,29 +129,21 @@ $years Tahun, $months Bulan, dan $finalDays Hari
                       color: Color.fromARGB(255, 14, 49, 107),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // TabBar
                   TabBar(
                     controller: _tabController,
                     labelColor: const Color.fromARGB(255, 14, 49, 107),
                     indicatorColor: const Color.fromARGB(255, 255, 221, 77),
                     tabs: const [
                       Tab(text: "Konversi Tahun"),
-                      Tab(text: "Hitung Usia"),
                     ],
                   ),
-
                   const SizedBox(height: 20),
-
-                  // TabBarView
                   Expanded(
                     child: TabBarView(
                       controller: _tabController,
                       children: [
                         _buildKonversiTahunTab(),
-                        _buildHitungUsiaTab(),
                       ],
                     ),
                   ),
@@ -226,7 +155,6 @@ $years Tahun, $months Bulan, dan $finalDays Hari
       ),
     );
   }
-
 
   Widget _buildKonversiTahunTab() {
     return Column(
@@ -257,7 +185,7 @@ $years Tahun, $months Bulan, dan $finalDays Hari
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              labelText: 'Contoh: 2 atau 2,5',
+              labelText: 'Contoh: 4',
               labelStyle: TextStyle(color: Color.fromARGB(255, 14, 49, 107)),
               prefixIcon: Icon(Icons.calendar_today, color: Color.fromARGB(255, 14, 49, 107)),
             ),
@@ -299,45 +227,6 @@ $years Tahun, $months Bulan, dan $finalDays Hari
     );
   }
 
-  Widget _buildHitungUsiaTab() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SizedBox(height: 20),
-        Text(
-          'Pilih tanggal:',
-          style: GoogleFonts.inriaSans(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Color.fromARGB(255, 14, 49, 107),
-          ),
-        ),
-        SizedBox(height: 12),
-        ElevatedButton.icon(
-          onPressed: _pickBirthDateTime,
-          icon: Icon(Icons.cake),
-          label: Text('Pilih Tanggal'),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 14, 49, 107),
-            foregroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            textStyle: GoogleFonts.rubikMonoOne(fontSize: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-          ),
-        ),
-        SizedBox(height: 30),
-        _showResultUmur
-            ? FadeTransition(
-          opacity: _animation,
-          child: _buildResultCard(_resultUmur),
-        )
-            : SizedBox.shrink(),
-      ],
-    );
-  }
-
   Widget _buildResultCard(String result) {
     return Card(
       color: Color.fromARGB(255, 255, 221, 77),
@@ -362,7 +251,6 @@ $years Tahun, $months Bulan, dan $finalDays Hari
   }
 }
 
-/// ✅ Custom formatter untuk angka ribuan + koma desimal (1.234,5)
 class CustomThousandCommaFormatter extends TextInputFormatter {
   final NumberFormat formatter = NumberFormat("#,###", "id_ID");
 
